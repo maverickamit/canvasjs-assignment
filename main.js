@@ -14,11 +14,11 @@ for (var i = 0; i < 4; i++) {
   // Calculate the circle's position
   var x = circleRadius + circleSpacing;
   var y = circleRadius + circleSpacing + (circleRadius * 2 + circleSpacing) * i;
-  draw_circle(ctx, x, y, circleRadius, i);
-  draw_arrow(ctx, fromx, y, tox, y);
+  drawCircle(ctx, x, y, circleRadius, i);
+  drawArrow(ctx, fromx, y, tox, y);
 }
 
-function draw_circle(ctx, x, y, circleRadius, i) {
+function drawCircle(ctx, x, y, circleRadius, i) {
   ctx.beginPath();
   ctx.arc(x, y, circleRadius, 0, 2 * Math.PI);
   ctx.closePath();
@@ -26,7 +26,7 @@ function draw_circle(ctx, x, y, circleRadius, i) {
   ctx.fill();
 }
 
-function draw_arrow(ctx, fromx, fromy, tox, toy) {
+function drawArrow(ctx, fromx, fromy, tox, toy) {
   var headLen = 5; // length of head in pixels
   var headHeight = 5;
   ctx.lineWidth = 5;
@@ -42,7 +42,7 @@ function draw_arrow(ctx, fromx, fromy, tox, toy) {
   ctx.stroke();
 }
 
-function clear_arrow(x, y) {
+function clearArrow(x, y) {
   ctx.clearRect(x, y - 15, 100, 30);
 }
 function clearCircle(x, y, circleRadius) {
@@ -53,11 +53,11 @@ function clearCircle(x, y, circleRadius) {
     circleRadius * 2
   );
 }
-function clear_canvas() {
+function clearCanvas() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
-function move_arrow(i) {
+function moveArrow(i) {
   var y = circleRadius + circleSpacing + (circleRadius * 2 + circleSpacing) * i;
   if (tox < circleRadius * 2 + circleSpacing + 5) {
     cancelAnimationFrame(requestId);
@@ -65,10 +65,10 @@ function move_arrow(i) {
   if (isMoving && tox >= circleRadius * 2 + circleSpacing + 5) {
     tox -= moveDistance;
     fromx -= moveDistance;
-    clear_arrow(tox, y);
-    draw_arrow(ctx, fromx, y, tox, y);
+    clearArrow(tox, y);
+    drawArrow(ctx, fromx, y, tox, y);
   }
-  var requestId = requestAnimationFrame(() => move_arrow(i));
+  var requestId = requestAnimationFrame(() => moveArrow(i));
   if (tox < circleRadius * 2 + circleSpacing + 5) {
     cancelAnimationFrame(requestId);
     stopMoving();
@@ -81,7 +81,7 @@ for (var i = 0; i < 4; i++) {
 }
 function startMoving(i) {
   isMoving = true;
-  move_arrow(i);
+  moveArrow(i);
 }
 
 function stopMoving() {
@@ -120,15 +120,15 @@ function handleClick(event) {
   }
 }
 function handleReset(event) {
-  clear_canvas();
+  clearCanvas();
   for (var i = 0; i < 4; i++) {
     arrowMovedStatus[i] = false;
     fromx = 750;
     tox = 700;
     x = circleRadius + circleSpacing;
     y = circleRadius + circleSpacing + (circleRadius * 2 + circleSpacing) * i;
-    draw_circle(ctx, x, y, circleRadius, i);
-    draw_arrow(ctx, fromx, y, tox, y);
+    drawCircle(ctx, x, y, circleRadius, i);
+    drawArrow(ctx, fromx, y, tox, y);
   }
 }
 canvas.addEventListener("click", handleClick);
