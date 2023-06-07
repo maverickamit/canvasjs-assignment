@@ -1,5 +1,12 @@
+body {
+  width: 800px;
+  user-select: none;
+}
 canvas {
   border: 2px solid black;
+}
+.title {
+  text-align: center;
 }
 .resetContainer {
   position: relative;
@@ -10,4 +17,5 @@ canvas {
   right: 0px;
   top: 5px;
   padding: 2px 5px;
+  cursor: pointer;
 }
