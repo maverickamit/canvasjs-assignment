@@ -1,4 +1,3 @@
-import "./style.css";
 var canvas = document.getElementById("myCanvas");
 var resetBtn = document.getElementById("resetButton");
 var ctx = canvas.getContext("2d");
