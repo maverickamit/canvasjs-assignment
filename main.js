@@ -45,6 +45,14 @@ function draw_arrow(ctx, fromx, fromy, tox, toy) {
 function clear_arrow(x, y) {
   ctx.clearRect(x, y - 15, 100, 30);
 }
+function clearCircle(x, y, circleRadius) {
+  ctx.clearRect(
+    x - circleRadius,
+    y - circleRadius,
+    circleRadius * 2,
+    circleRadius * 2
+  );
+}
 function clear_canvas() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
@@ -64,6 +72,7 @@ function move_arrow(i) {
   if (tox < circleRadius * 2 + circleSpacing + 5) {
     cancelAnimationFrame(requestId);
     stopMoving();
+    circleColorChange(i);
   }
 }
 var arrowMovedStatus = {};
@@ -77,6 +86,15 @@ function startMoving(i) {
 
 function stopMoving() {
   isMoving = false;
+}
+function circleColorChange(i) {
+  var x = circleRadius + circleSpacing;
+  var y = circleRadius + circleSpacing + (circleRadius * 2 + circleSpacing) * i;
+  clearCircle(x, y, circleRadius);
+  ctx.beginPath();
+  ctx.arc(x, y, circleRadius, 0, 2 * Math.PI);
+  ctx.fillStyle = "grey";
+  ctx.fill();
 }
 function handleClick(event) {
   //reset starting point of x cordinates after animation ends
@@ -104,7 +122,6 @@ function handleClick(event) {
 function handleReset(event) {
   clear_canvas();
   for (var i = 0; i < 4; i++) {
-    // Calculate the circle's position
     fromx = 750;
     tox = 700;
     x = circleRadius + circleSpacing;
