@@ -24,20 +24,16 @@ for (var i = 0; i < 4; i++) {
   ctx.stroke();
 }
 
-function canvas_arrow(context, fromx, fromy, tox, toy) {
-  var headlen = 10; // length of head in pixels
-  var dx = tox - fromx;
-  var dy = toy - fromy;
-  var angle = Math.atan2(dy, dx);
-  context.moveTo(fromx, fromy);
-  context.lineTo(tox, toy);
-  context.lineTo(
-    tox - headlen * Math.cos(angle - Math.PI / 6),
-    toy - headlen * Math.sin(angle - Math.PI / 6)
-  );
-  context.moveTo(tox, toy);
-  context.lineTo(
-    tox - headlen * Math.cos(angle + Math.PI / 6),
-    toy - headlen * Math.sin(angle + Math.PI / 6)
-  );
+function canvas_arrow(ctx, fromx, fromy, tox, toy) {
+  var headLen = 5; // length of head in pixels
+  var headHeight = 5;
+  ctx.lineWidth = 5;
+  ctx.moveTo(fromx, fromy);
+  ctx.lineTo(tox + headLen, toy);
+  ctx.moveTo(tox, toy);
+  ctx.lineTo(tox + headLen, toy + headHeight);
+  ctx.lineTo(tox + headLen, toy - headHeight);
+  ctx.closePath();
+  ctx.fillStyle = "black";
+  ctx.fill();
 }
