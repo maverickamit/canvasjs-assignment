@@ -122,6 +122,7 @@ function handleClick(event) {
 function handleReset(event) {
   clear_canvas();
   for (var i = 0; i < 4; i++) {
+    arrowMovedStatus[i] = false;
     fromx = 750;
     tox = 700;
     x = circleRadius + circleSpacing;
