@@ -1,5 +1,6 @@
 import "./style.css";
 var canvas = document.getElementById("myCanvas");
+var resetBtn = document.getElementById("resetButton");
 var ctx = canvas.getContext("2d");
 var circleRadius = 30;
 var circleSpacing = 10;
@@ -14,11 +15,11 @@ for (var i = 0; i < 4; i++) {
   // Calculate the circle's position
   var x = circleRadius + circleSpacing;
   var y = circleRadius + circleSpacing + (circleRadius * 2 + circleSpacing) * i;
-  draw_circle(ctx, x, y, circleRadius);
+  draw_circle(ctx, x, y, circleRadius, i);
   draw_arrow(ctx, fromx, y, tox, y);
 }
 
-function draw_circle(ctx, x, y, circleRadius) {
+function draw_circle(ctx, x, y, circleRadius, i) {
   ctx.beginPath();
   ctx.arc(x, y, circleRadius, 0, 2 * Math.PI);
   ctx.closePath();
@@ -42,21 +43,22 @@ function draw_arrow(ctx, fromx, fromy, tox, toy) {
   ctx.stroke();
 }
 
-function clearCanvas(x, y) {
+function clear_arrow(x, y) {
   ctx.clearRect(x, y - 15, 100, 30);
+}
+function clear_canvas() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 function move_arrow(i) {
-  console.log("ran");
   var y = circleRadius + circleSpacing + (circleRadius * 2 + circleSpacing) * i;
   if (tox < circleRadius * 2 + circleSpacing + 5) {
-    console.log(requestId);
     cancelAnimationFrame(requestId);
   }
   if (isMoving && tox >= circleRadius * 2 + circleSpacing + 5) {
     tox -= moveDistance;
     fromx -= moveDistance;
-    clearCanvas(tox, y);
+    clear_arrow(tox, y);
     draw_arrow(ctx, fromx, y, tox, y);
   }
   var requestId = requestAnimationFrame(() => move_arrow(i));
@@ -100,4 +102,17 @@ function handleClick(event) {
     }
   }
 }
+function handleReset(event) {
+  clear_canvas();
+  for (var i = 0; i < 4; i++) {
+    // Calculate the circle's position
+    fromx = 750;
+    tox = 700;
+    x = circleRadius + circleSpacing;
+    y = circleRadius + circleSpacing + (circleRadius * 2 + circleSpacing) * i;
+    draw_circle(ctx, x, y, circleRadius, i);
+    draw_arrow(ctx, fromx, y, tox, y);
+  }
+}
 canvas.addEventListener("click", handleClick);
+resetBtn.addEventListener("click", handleReset);

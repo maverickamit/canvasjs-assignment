@@ -1,3 +1,13 @@
 canvas {
   border: 2px solid black;
 }
+.resetContainer {
+  position: relative;
+  width: 800px;
+}
+.resetContainer button {
+  position: absolute;
+  right: 0px;
+  top: 5px;
+  padding: 2px 5px;
+}
