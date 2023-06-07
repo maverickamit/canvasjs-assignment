@@ -59,9 +59,7 @@ function clearCanvas() {
 
 function moveArrow(i) {
   var y = circleRadius + circleSpacing + (circleRadius * 2 + circleSpacing) * i;
-  if (tox < circleRadius * 2 + circleSpacing + 5) {
-    cancelAnimationFrame(requestId);
-  }
+
   if (isMoving && tox >= circleRadius * 2 + circleSpacing + 5) {
     tox -= moveDistance;
     fromx -= moveDistance;
